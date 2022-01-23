@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { NextPage } from 'next'
 
-const Navbar = () => {
+const Navbar: NextPage = () => {
     return (
         <header>
             <nav>

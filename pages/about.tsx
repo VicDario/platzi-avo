@@ -1,6 +1,7 @@
-import Navbar from '../components/navbar/Navbar';
+import { NextPage } from 'next';
+import Navbar from '../components/Navbar/Navbar';
 
-const About = () => {
+const About: NextPage = () => {
     return (
         <div>
             <Navbar />

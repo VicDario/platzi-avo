@@ -14,7 +14,6 @@ const Home: NextPage = () => {
     }, []);
     return (
         <div>
-            <Navbar />
             <h1>Home Platzi-avo</h1>
             {productList.map((product, index) => {
                 return (

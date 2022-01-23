@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { NextPage } from 'next';
 import Navbar from '../components/navbar/Navbar';
-const Home = () => {
+const Home: NextPage = () => {
     const [productList, setProductList] = useState<TProduct[]>([]);
 
     useEffect(() => {
@@ -8,7 +9,6 @@ const Home = () => {
             .then(res => res.json())
             .then(({ data, length }) => {
                 setProductList(data);
-                console.log(productList)
             })
             .catch(err => console.log(err));
     }, []);
@@ -20,7 +20,7 @@ const Home = () => {
                 return (
                     <div key={index}>
                         <h2>{product.name}</h2>
-                        <img src={product.image} alt="" />
+                        <img src={product.image} alt={product.name}/>
                     </div>
                 );
             })}

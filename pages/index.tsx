@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import Navbar from '../components/Navbar/Navbar';
+
 const Home: NextPage = () => {
     const [productList, setProductList] = useState<TProduct[]>([]);
 

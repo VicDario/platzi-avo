@@ -1,15 +1,13 @@
-import { NextPage } from "next";
-
-import Navbar from "components/Navbar/Navbar";
+import Navbar from '@components/Navbar/Navbar';
 
 const Layout: React.FC = ({ children }) => {
-    return (
-        <div>
-            <Navbar />
-            {children}
-            <footer>This is the footer</footer>
-        </div>
-    )
-}
+  return (
+    <div>
+      <Navbar />
+      {children}
+      <footer>footer</footer>
+    </div>
+  );
+};
 
 export default Layout;

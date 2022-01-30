@@ -1,33 +1,22 @@
-import corsWrapper from 'cors';
-import { RequestHandler } from 'express';
+import cors, { CorsOptions, CorsOptionsDelegate } from 'cors'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-/**
- * Hey there you curious :)
- *
- * By default, NextJS APIs are same-site origin only.
- * But since *I needed the main project*
- * to have public API access, I had to configure CORS.
- *
- * @see https://github.com/vercel/next.js/tree/canary/examples/api-routes-cors
- * @see https://github.com/expressjs/cors#configuration-options
- */
-const CORS_OPTIONS = {
-	methods: ['GET', 'OPTIONS'],
-};
+// - Helper method to wait for a middleware to execute before continuing
+// - And to throw an error when an error happens in a middleware
+function initMiddleware(middleware: typeof cors) {
+  return (req: NextApiRequest, res: NextApiResponse, options?: CorsOptions | CorsOptionsDelegate) =>
+    new Promise((resolve, reject) => {
+      middleware(options)(req, res, (result: Error | unknown) => {
+        if (result instanceof Error) {
+          return reject(result)
+        }
 
-function promisifyMiddleware(middleware: RequestHandler) {
-	return (req: any, res: any) =>
-		new Promise((resolve, reject) => {
-			middleware(req, res, (result: Error | unknown) => {
-				if (result instanceof Error) {
-					return reject(result);
-				}
-				return resolve(result);
-			});
-		});
+        return resolve(result)
+      })
+    })
 }
 
-// Initialize the cors middleware
-const cors = promisifyMiddleware(corsWrapper(CORS_OPTIONS));
+// - You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+const NextCors = initMiddleware(cors)
 
-export default cors;
+export default NextCors

@@ -66,7 +66,6 @@ const AboutPage: NextPage = () => {
 					padding: 0;
 					margin: 0;
 				}
-
 				figure {
 					margin: 2rem auto 3rem;
 					text-align: center;
@@ -76,25 +75,16 @@ const AboutPage: NextPage = () => {
 					font-site: 0.7rem;
 					color: grey;
 				}
-
 				ol {
 					list-style: none;
-
-					// Look ma! Responsive grid with no Media queries :)
-					// https://css-tricks.com/look-ma-no-media-queries-responsive-layouts-using-css-grid/
 					display: grid;
 					grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 					grid-gap: 4.5rem 3rem;
-
-					// Look ma! A CSS Counter :)
-					// https://moderncss.dev/totally-custom-list-styles/
 					counter-reset: orderedlist;
 				}
 				li::before {
 					counter-increment: orderedlist;
 					content: counter(orderedlist);
-
-					// Boring stuff
 					position: absolute;
 					top: -43px;
 					left: -5px;
@@ -102,13 +92,10 @@ const AboutPage: NextPage = () => {
 					font-size: 5rem;
 					font-weight: bold;
 				}
-
 				li {
 					position: relative;
 				}
 				h3:first-child {
-					// why the first-child selector you may ask...
-					// to gain specificity and thus avoid using '!important' :)
 					padding-left: 40px;
 					margin-bottom: 2rem;
 				}

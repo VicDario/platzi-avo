@@ -1,25 +1,31 @@
-import { useState, useEffect } from 'react';
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-
+import { GetStaticProps, GetStaticPaths } from 'next';
 import Layout from '@components/Layout/Layout';
 import ProductSummary from '@components/ProductSummary/ProductSummary';
 
-const ProductPage: NextPage = () => {
-	const { query } = useRouter();
-	const [product, setProduct] = useState<TProduct | null>(null);
+export const getStaticProps: GetStaticProps = async({ params }) => {
+	const productId = params?.productId as string;
+	const response = await fetch(`https://platzi-avo-r050t3brl-vicdario.vercel.app/api/avo/${productId}`);
+	const data : TAPIAVODetailResponse = await response.json();
 
-	useEffect(() => {
-		if (query.productId) {
-			window
-				.fetch(`/api/avo/${query.productId}`)
-				.then((response) => response.json())
-				.then((data: TProduct) => {
-					setProduct(data);
-				});
+	return {
+		props: {
+			data
 		}
-	}, [query.productId]);
+	}
+}
+export const getStaticPaths: GetStaticPaths = async() => {
+	const response = await fetch(`https://platzi-avo-r050t3brl-vicdario.vercel.app/api/avo}`);
+	const { data: productList }: TAPIAvoResponse = await response.json();
 
+	const paths = productList.map(({ id }) => ({ params: { productId: id } }));
+
+	return {
+		paths,
+		fallback: false
+	}
+}
+
+const ProductPage = ({ product }: { product: TProduct }) => {
 	return <Layout>{product == null ? null : <ProductSummary product={product} />}</Layout>;
 };
 

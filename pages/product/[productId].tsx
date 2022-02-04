@@ -6,11 +6,10 @@ import ProductSummary from '@components/ProductSummary/ProductSummary';
 export const getStaticProps: GetStaticProps = async({ params }) => {
 	const productId = params?.productId as string;
 	const response = await fetch(`https://platzi-avo-r050t3brl-vicdario.vercel.app/api/avo/${productId}`);
-	const data : TAPIAVODetailResponse = await response.json();
-
+	const product : TAPIAVODetailResponse = await response.json();
 	return {
 		props: {
-			data
+			product
 		}
 	}
 }
@@ -27,7 +26,7 @@ export const getStaticPaths: GetStaticPaths = async() => {
 }
 
 const ProductPage = ({ product }: { product: TProduct }) => {
-	return <Layout>{product == null ? null : <ProductSummary product={product} />}</Layout>;
+	return <Layout>{product === null ? null : <ProductSummary product={product} />}</Layout>;
 };
 
 export default ProductPage;

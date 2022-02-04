@@ -1,4 +1,5 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
+import fetch from 'isomorphic-unfetch';
 import Layout from '@components/Layout/Layout';
 import ProductSummary from '@components/ProductSummary/ProductSummary';
 
@@ -14,7 +15,7 @@ export const getStaticProps: GetStaticProps = async({ params }) => {
 	}
 }
 export const getStaticPaths: GetStaticPaths = async() => {
-	const response = await fetch(`https://platzi-avo-r050t3brl-vicdario.vercel.app/api/avo}`);
+	const response = await fetch(`https://platzi-avo-r050t3brl-vicdario.vercel.app/api/avo`);
 	const { data: productList }: TAPIAvoResponse = await response.json();
 
 	const paths = productList.map(({ id }) => ({ params: { productId: id } }));

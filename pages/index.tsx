@@ -5,7 +5,7 @@ import ProductList from '@components/ProductList/ProductList';
 import { GetStaticProps } from 'next';
 
 export const getStaticProps: GetStaticProps = async () => {
-	const response = await fetch('https://platzi-avo-r050t3brl-vicdario.vercel.app/api/avo');
+	const response = await fetch('https://platzi-avo-vicdario.vercel.app/api/avo');
 	const { data: productList }: TAPIAvoResponse = await response.json();
 
 	return {
